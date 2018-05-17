@@ -16,6 +16,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登陆处理
+     * @param req
+     * @param resp
+     */
     @RequestMapping("/login")
     public void productList(HttpServletRequest req, HttpServletResponse resp) {
         PrintWriter out = null;
@@ -37,6 +42,12 @@ public class UserController {
         }
     }
 
+    /**
+     * 退出， 将用户从session中移除
+     * @param req
+     * @param resp
+     * @return
+     */
     @RequestMapping("/logout")
     public String logout(HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().removeAttribute("user");

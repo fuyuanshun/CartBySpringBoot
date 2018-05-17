@@ -14,6 +14,12 @@ public interface UserService{
     User selectUser(String username, String password);
 
     /**
+     * 根据商品id查询商品
+     */
+    @Select("select id, name from product where id = #{id}")
+    Product selectProductById(Integer id);
+
+    /**
      * 显示商品列表
      */
     List<Product> selectProducts();

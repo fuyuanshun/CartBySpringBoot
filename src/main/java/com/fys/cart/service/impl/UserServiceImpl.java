@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Product selectProductById(Integer id) {
+        return userDao.selectProductById(id);
+    }
+
+    @Override
     public List<Product> selectProducts() {
         return userDao.selectProducts();
     }

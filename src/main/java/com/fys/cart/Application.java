@@ -16,7 +16,7 @@ public class Application {
     }
 
 
-   /* @Autowired
+    @Autowired
     private Environment environment;
 
     @Bean(destroyMethod = "close")
@@ -35,5 +35,5 @@ public class Application {
         dataSource.setTestWhileIdle(true);//建议配置为true，不影响性能，并且保证安全性。
         dataSource.setPoolPreparedStatements(false);//是否缓存preparedStatement，也就是PSCache
         return dataSource;
-    }*/
+    }
 }

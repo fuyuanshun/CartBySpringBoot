@@ -5,6 +5,7 @@
 <head>
     <title>商品列表</title>
     <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/productList.js"></script>
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
 </head>
 <%
@@ -18,7 +19,6 @@
     <tr class="active">
         <th>商品id</th>
         <th>商品名称</th>
-        <th>数量</th>
         <th>商品单价</th>
         <th>操作</th>
     </tr>
@@ -26,11 +26,19 @@
         <tr>
             <th>${product.id}</th>
             <th>${product.name}</th>
-            <th><input type="text" value="1" class="form-control"></th>
             <th>${product.price}</th>
-            <th><a href="#?id=${product.id}">加入购物车</a></th>
+            <th>
+                <form action="" method="post">
+                    <span class="span">数量:</span>
+                    <input type="text" value="1" class="input-group-sm num" name="num" pid="${product.id}"/>
+                    <input type="button" value="加入购物车" class="button" pid="${product.id}"/>
+                </form>
+            </th>
         </tr>
     </c:forEach>
+    <tr class="container">
+        <th colspan="4"><a href="/orderItemList">查看购物车</a></th>
+    </tr>
 </table>
 </body>
 </html>
