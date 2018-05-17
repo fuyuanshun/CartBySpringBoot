@@ -95,33 +95,37 @@ public class OrderController {
      */
     @RequestMapping("/createOrderItem")
     public void createOrderItem(HttpServletRequest req, HttpServletResponse resp) {
+        PrintWriter out = null;
+        // 数据库操作的信息 0表示失败，1表示成功
+        int ret = 0;
+        try {
+            out = resp.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         User user = (User) req.getSession().getAttribute("user");
         Order order = new Order();
         order.setUser(user);
-
-        int ret = userService.insertOrder(order);
-        if (ret == 1) {
+        //订单插入数据库成功，才进行下一步操作，否则返回错误信息
+        if (1 == userService.insertOrder(order)) {
             List<OrderItem> orderItems = (List<OrderItem>) req.getSession().getAttribute("orderItems");
 
             for (OrderItem oi: orderItems) {
                 oi.setOrder(order);
-                System.out.println(oi.getProduct().getId());
-                System.out.println(oi.getProduct().getName());
-                System.out.println(oi.getNum());
+                //将orderItem插入数据库, 用ret来记录是否成功
+                ret = userService.insertOrderItem(oi);
+            }
 
-                int ret2 = userService.insertOrderItem(oi);
-                System.out.println(ret2);
-            }
-            try {
-                /**
-                 * 订单创建完成后，清空session
-                 */
-                orderItems.clear();
-                resp.setContentType("text/html; charset=UTF-8");
-                resp.getWriter().println("订单创建成功");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+            // 数据库插入成功，返回成功信息
+            if(1 == ret) {
+                out.print("success");
+            } else out.print("error");
+
+            /**
+             * 订单创建完成后，清空session
+             */
+            orderItems.clear();
+        } else out.print("error");
+
     }
 }

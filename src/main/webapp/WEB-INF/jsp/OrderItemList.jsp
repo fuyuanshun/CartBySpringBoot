@@ -18,8 +18,30 @@
 <html>
 <head>
     <title class="text-center">购物车</title>
+    <script type="text/javascript" src="/js/jquery/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
 </head>
+
+<script type="text/javascript">
+    $(function () {
+        $(".createItem").click(function () {
+            $.ajax({
+                url : "/createOrderItem",
+                async : false,
+                success : function(data, textState) {
+                    if(data == "success") {
+                        alert("订单生成成功!");
+                        window.location.reload();
+                    } else alert("服务器出错, 订单生成失败!")
+                },
+                error : function () {
+                    alert("服务器出错啦。。请稍后重试");
+                }
+            })
+        })
+    })
+</script>
+
 <body>
 <div class="text-center">
     <h2>购物车</h2>
@@ -47,7 +69,9 @@
             <th></th>
             <th>总计:<%=countPrice%>元</th>
             <c:if test="${!empty orderItems}">
-                <th class="right-pill"><a href="/createOrderItem">生成订单</a></th>
+                <th class="right-pill">
+                    <input type="button" value="生成订单" class="createItem"/>
+                </th>
             </c:if>
         </tr>
         <tr>
