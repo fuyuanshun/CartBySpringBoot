@@ -1,5 +1,7 @@
 package com.fys.cart.service;
 
+import com.fys.cart.model.Order;
+import com.fys.cart.model.OrderItem;
 import com.fys.cart.model.Product;
 import com.fys.cart.model.User;
 import org.apache.ibatis.annotations.Select;
@@ -23,4 +25,14 @@ public interface UserService{
      * 显示商品列表
      */
     List<Product> selectProducts();
+
+    /**
+     * 添加订单对象到数据库
+     */
+    int insertOrder(Order order);
+
+    /**
+     * 将OrderItem保存到数据库
+     */
+    int insertOrderItem(OrderItem orderitem);
 }

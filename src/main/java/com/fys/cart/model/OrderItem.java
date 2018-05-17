@@ -10,6 +10,9 @@ public class OrderItem {
 
     @OneToOne
     private Product product;
+
+    @OneToOne
+    private Order order;
     private int num;
 
     public Integer getId() {
@@ -33,5 +36,13 @@ public class OrderItem {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

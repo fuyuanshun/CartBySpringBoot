@@ -1,11 +1,10 @@
 package com.fys.cart.dao;
 
+import com.fys.cart.model.Order;
+import com.fys.cart.model.OrderItem;
 import com.fys.cart.model.Product;
 import com.fys.cart.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,8 +34,15 @@ public interface UserDao {
     List<Product> selectProducts();
 
     /**
-     * 添加商品到购物车
+     * 添加订单对象到数据库
      */
-    @Insert("insert into orderItem set pid = #{pid}, oid = #{oid}, number=#{num}")
-    void insertOrderItem(@Param("pid")Integer pid, @Param("oid")Integer oid, @Param("num")String num);
+    @Insert("insert into t_order set uid = #{order.user.id}")
+    @Options(useGeneratedKeys = true, keyProperty = "order.id", keyColumn = "id")
+    int insertOrder(@Param("order") Order order);
+
+    /**
+     * 将OrderItem保存到数据库
+     */
+    @Insert("insert into orderItem  (pid, oid, number) values (#{orderItem.product.id}, #{orderItem.order.id}, #{orderItem.num})")
+    int insertOrderItem(@Param("orderItem") OrderItem orderItem);
 }

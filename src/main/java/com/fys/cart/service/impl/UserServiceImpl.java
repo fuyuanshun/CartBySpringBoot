@@ -1,6 +1,8 @@
 package com.fys.cart.service.impl;
 
 import com.fys.cart.dao.UserDao;
+import com.fys.cart.model.Order;
+import com.fys.cart.model.OrderItem;
 import com.fys.cart.model.Product;
 import com.fys.cart.model.User;
 import com.fys.cart.service.UserService;
@@ -27,5 +29,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Product> selectProducts() {
         return userDao.selectProducts();
+    }
+
+    @Override
+    public int insertOrder(Order order) {
+        return userDao.insertOrder(order);
+    }
+
+    @Override
+    public int insertOrderItem(OrderItem orderItem) {
+        return userDao.insertOrderItem(orderItem);
     }
 }

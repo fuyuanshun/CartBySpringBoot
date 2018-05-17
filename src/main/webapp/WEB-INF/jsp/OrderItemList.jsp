@@ -9,8 +9,10 @@
      */
     float countPrice = 0;
     List<OrderItem> orderItemList = (List<OrderItem>) request.getSession().getAttribute("orderItems");
-    for (OrderItem orderItem: orderItemList) {
-        countPrice += orderItem.getNum()*orderItem.getProduct().getPrice();
+    if(null != orderItemList) {
+        for (OrderItem orderItem : orderItemList) {
+            countPrice += orderItem.getNum() * orderItem.getProduct().getPrice();
+        }
     }
 %>
 <html>
@@ -44,7 +46,9 @@
             <th></th>
             <th></th>
             <th>总计:<%=countPrice%>元</th>
-            <th class="right-pill"><a href="/addOrderItem">下订单</a></th>
+            <c:if test="${!empty orderItems}">
+                <th class="right-pill"><a href="/createOrderItem">生成订单</a></th>
+            </c:if>
         </tr>
         <tr>
            <th colspan="5"><a href="/productList">返回商品列表</a> </th>
