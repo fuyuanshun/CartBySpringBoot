@@ -1,17 +1,10 @@
 package com.fys.cart.model;
 
-import javax.persistence.*;
-
-@Entity
 public class OrderItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne
     private Product product;
 
-    @OneToOne
     private Order order;
     private int num;
 
